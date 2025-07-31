@@ -1,39 +1,51 @@
-name: Run Special-Treatment Tokens
+name: Scheduled Python Script
 
 on:
   schedule:
-    - cron: "0 8 * * *"  # Runs every day at 8 AM UTC
-  # workflow_dispatch:     # Allow manual trigger
+    - cron: '0 */24 * * *'  # Runs every 5 days
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main 
 
 jobs:
-  scrape:
+  run-script:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout repo
-        uses: actions/checkout@v3
-
-      - name: Set up Node.js
-        uses: actions/setup-node@v3
+      - name: ⏬ Check out repository with Tokens
+        uses: actions/checkout@v2
         with:
-          node-version: '18'
+          token: ${{ secrets.ST_Tokens }}  # 👈 Make sure this secret exists and has 'repo' scope
 
-      - name: Install dependencies
-        run: npm install
+      - name: 🛠️ Set up Python
+        uses: actions/setup-python@v2
+        with:
+          python-version: '3.9'
 
-      - name: Run ST_Gateio
-        run: node ST_Gateio
-
-      - name: Setup Git Config
+      - name: 📦 Install dependencies
         run: |
-          git config --global user.name "github-actions[bot]"
-          git config --global user.email "actions@github.com"
+          pip install --upgrade openpyxl pandas requests matplotlib
+          if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
 
-      - name: Push Changes
+      - name: 🧪 Verify OpenPyXL Installation
+        run: python -c "import openpyxl; print('Openpyxl version:', openpyxl.__version__)"
+
+      - name: 🚀 Run Python scripts
+        run: |
+          python ST_Gateio.py
+          
+      - name: 📤 Commit and Push Changes
         env:
-          GH_PAT: ${{ secrets.ST_Tokens }}
+          GITHUB_TOKEN: ${{ secrets.ST_Tokens }}
         run: |
+          git config --global user.email "actions@github.com"
+          git config --global user.name "GitHub Actions"
+          git checkout main
+
           git add .
-          git commit -m "Automated update - $(date)" || echo "No changes to commit"
-          git pull --rebase origin main
-          git push https://x-access-token:${ST_Tokens}@github.com/Fedric-Reform/Special-Treatment.git main
+          git commit -m "🔄 Automated update - $(date +'%Y-%m-%d %H:%M:%S')" || echo "No changes to commit"
+          git pull origin main --rebase || echo "Nothing to rebase"
+          git push origin main
