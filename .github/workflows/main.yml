@@ -36,4 +36,4 @@ jobs:
           git add .
           git commit -m "Automated update - $(date)" || echo "No changes to commit"
           git pull --rebase origin main
-          git push https://x-access-token:${GH_PAT}@github.com/Fedric-Reform/ICO-IDO-Dashboard.git main
+          git push https://x-access-token:${ST_Tokens}@github.com/Fedric-Reform/Special-Treatment.git main
