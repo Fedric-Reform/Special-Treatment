@@ -36,6 +36,7 @@ jobs:
       - name: 🚀 Run Python scripts
         run: |
           python ST_Gateio.py
+          python ST_Bybit.py
           
       - name: 📤 Commit and Push Changes
         env:
