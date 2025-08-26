@@ -5,7 +5,7 @@ import os
 import time
 from datetime import datetime
 
-API_URL = "https://api.bytick.com/v5/market/instruments-info"
+API_URL = "https://api.bybit.com/v5/market/instruments-info"
 CSV_FILE = "ST_Bybit.csv"
 RATE_LIMIT_DELAY = 0.1  # small delay to respect Bybit rate limits
 
