@@ -40,7 +40,7 @@ def append_to_csv(st_items):
     Append only new ST pairs for today to the CSV.
     """
     file_exists = os.path.isfile(CSV_FILE)
-    timestamp = datetime.utcnow().strftime("%Y-%m-%dT%H:%M:%SZ")
+    timestamp = datetime.utcnow().strftime("%Y-%m-%d")
     seen_today = read_existing_for_today()
 
     with open(CSV_FILE, mode="a", newline="", encoding="utf-8") as f:
