@@ -38,7 +38,8 @@ jobs:
           python ST_Gateio.py
           python ST_MEXC.py
           python ST_OKX.py
-          python ST.Huobi.py
+          python ST_Huobi.py
+          python ST_KuCoin.py
       
           
       - name: 📤 Commit and Push Changes
