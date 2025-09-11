@@ -30,7 +30,7 @@ def fetch_kucoin_st_tokens():
             for symbol in symbols:
                 # Convert tags to uppercase and check for 'ST'
                 st_value = symbol.get('st', '')
-                if st_value == "true" : # This checks for 'ST', 'st', 'St', 'sT', etc.
+                if st_value == "true": # This checks for 'ST', 'st', 'St', 'sT', etc.
                     st_tokens.append({
                         'pair': symbol.get('symbol'),
                         'base': symbol.get('baseCurrency'),
