@@ -39,6 +39,7 @@ jobs:
           python ST_OKX.py
           python ST_Huobi.py
           python ST_KuCoin.py
+          python ST_Bitget.py
       
           
       - name: 📤 Commit and Push Changes
