@@ -40,6 +40,7 @@ jobs:
           python ST_Huobi.py
           python ST_KuCoin.py
           python ST_Bitget.py
+          python ST_Coinbase.py
       
           
       - name: 📤 Commit and Push Changes
