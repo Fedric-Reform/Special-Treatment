@@ -35,8 +35,6 @@ def fetch_bitget_grey_status_tokens():
                         'base': symbol.get('baseCoin'),
                         'quote': symbol.get('quoteCoin'),
                         'status': symbol.get('status'),
-                        'min_trade_amount': symbol.get('minTradeAmount'),
-                        'max_trade_amount': symbol.get('maxTradeAmount'),
                         'last_updated': datetime.now().strftime('%Y-%m-%d')
                     })
             
