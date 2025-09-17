@@ -19,12 +19,7 @@ def fetch_kucoin_st_tokens():
         response = requests.get(url, timeout=10)
         response.raise_for_status()
         data = response.json()
-        
-        # Check if API call was successful
-        if data.get('code') == '200000':  # KuCoin success code
-            symbols = data.get('data', [])
-            print(f"✅ Successfully fetched {len(symbols)} trading symbols")
-            
+                    
             # Filter for tokens with ST tag (case-insensitive)
             st_tokens = []
             for symbol in symbols:
