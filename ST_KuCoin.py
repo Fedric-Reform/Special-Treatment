@@ -11,7 +11,7 @@ def fetch_kucoin_st_tokens():
     url = "https://api.kucoin.com/api/v2/symbols"
     
     # Rate limiting: Small delay to be respectful
-    time.sleep(0.1)
+    time.sleep(0.2)
     
     print("📡 Fetching symbol data from KuCoin API...")
     
@@ -29,8 +29,8 @@ def fetch_kucoin_st_tokens():
             st_tokens = []
             for symbol in symbols:
                 # Convert tags to uppercase and check for 'ST'
-                st_value = symbol.get('st', '')
-                if st_value == true: # This checks for 'ST', 'st', 'St', 'sT', etc.
+                st_value = symbol.get('st','')
+                if st_value == "true":
                     st_tokens.append({
                         'pair': symbol.get('symbol'),
                         'base': symbol.get('baseCurrency'),
