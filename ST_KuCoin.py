@@ -21,23 +21,23 @@ def fetch_kucoin_st_tokens():
         data = response.json()
                     
             # Filter for tokens with ST tag (case-insensitive)
-            st_tokens = []
-            for symbol in symbols:
-                # Convert tags to uppercase and check for 'ST'
-                st_value = symbol.get('st','')
-                if st_value == "true":
-                    st_tokens.append({
-                        'pair': symbol.get('symbol'),
-                        'base': symbol.get('baseCurrency'),
-                        'quote': symbol.get('quoteCurrency'),
-                        'st': st_value,
-                        'status': symbol.get('enableTrading'),
-                        'last_updated': datetime.now().strftime('%Y-%m-%d %H:%M:%S')
-                    })
-            return st_tokens
-        else:
-            print(f"❌ API Error: {data.get('msg', 'Unknown error')}")
-            return []
+        st_tokens = []
+        for symbol in symbols:
+            # Convert tags to uppercase and check for 'ST'
+            st_value = symbol.get('st','')
+            if st_value == "true":
+                st_tokens.append({
+                    'pair': symbol.get('symbol'),
+                    'base': symbol.get('baseCurrency'),
+                    'quote': symbol.get('quoteCurrency'),
+                    'st': st_value,
+                    'status': symbol.get('enableTrading'),
+                    'last_updated': datetime.now().strftime('%Y-%m-%d %H:%M:%S')
+                })
+        return st_tokens
+    else:
+        print(f"❌ API Error: {data.get('msg', 'Unknown error')}")
+        return []
             
     except requests.exceptions.RequestException as e:
         print(f"❌ Network error: {e}")
