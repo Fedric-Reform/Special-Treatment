@@ -2,13 +2,20 @@ name: Scheduled Python Script
 
 on:
   schedule:
-    - cron: '0 8 * * 1-5'  # Runs everydays
+    - cron: '0 8 * * 1-5'  # Runs everyday
   push:
     branches:
       - main
   pull_request:
     branches:
-      - main 
+      - main
+  workflow_dispatch:  # 👈 Add this line to enable manual triggering
+    inputs:
+      reason:
+        description: 'Reason for manual run'
+        required: false
+        default: 'Manual trigger'
+      
 
 jobs:
   run-script:
