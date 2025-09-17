@@ -19,22 +19,27 @@ def fetch_kucoin_st_tokens():
         response = requests.get(url, timeout=10)
         response.raise_for_status()
         data = response.json()
-                    
+
+        # Check if API call was successful
+        if data.get('code') == '200000':  # KuCoin success code
+            symbols = data.get('data', [])
+            print(f"✅ Successfully fetched {len(symbols)} trading symbols")
+            
             # Filter for tokens with ST tag (case-insensitive)
-        st_tokens = []
-        for symbol in symbols:
-            # Convert tags to uppercase and check for 'ST'
-            st_value = symbol.get('st','')
-            if st_value == "true":
-                st_tokens.append({
-                    'pair': symbol.get('symbol'),
-                    'base': symbol.get('baseCurrency'),
-                    'quote': symbol.get('quoteCurrency'),
-                    'st': st_value,
-                    'status': symbol.get('enableTrading'),
-                    'last_updated': datetime.now().strftime('%Y-%m-%d %H:%M:%S')
-                })
-        return st_tokens
+            st_tokens = []
+            for symbol in symbols:
+                # Convert tags to uppercase and check for 'ST'
+                st_value = symbol.get('st','')
+                if st_value == "true":
+                    st_tokens.append({
+                        'pair': symbol.get('symbol'),
+                        'base': symbol.get('baseCurrency'),
+                        'quote': symbol.get('quoteCurrency'),
+                        'st': st_value,
+                        'status': symbol.get('enableTrading'),
+                        'last_updated': datetime.now().strftime('%Y-%m-%d %H:%M:%S')
+                        })
+                return st_tokens
     else:
         print(f"❌ API Error: {data.get('msg', 'Unknown error')}")
         return []
