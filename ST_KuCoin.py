@@ -26,7 +26,7 @@ def fetch_kucoin_st_tokens():
                 'last_updated': datetime.now().strftime('%Y-%m-%d')
             }
             for symbol in data
-            if symbol.get('st') == "true"
+            if symbol.get('st') == true
         ]
 
         return st_tokens
