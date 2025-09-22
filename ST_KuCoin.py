@@ -40,9 +40,9 @@ def fetch_kucoin_st_tokens():
                         'last_updated': datetime.now().strftime('%Y-%m-%d %H:%M:%S')
                         })
                 return st_tokens
-    else:
-        print(f"❌ API Error: {data.get('msg', 'Unknown error')}")
-        return []
+            else:
+                print(f"❌ API Error: {data.get('msg', 'Unknown error')}")
+                return []
             
     except requests.exceptions.RequestException as e:
         print(f"❌ Network error: {e}")
